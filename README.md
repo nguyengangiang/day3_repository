@@ -10,6 +10,15 @@ brownfield refactoring lab. It contains intentional anti-patterns:
 
 **Do not "fix" it before completing Phase 1 and 2 of the lab.**
 
+## Curriculum repositories
+
+| Day | Lab | Repository |
+| --- | --- | ---------- |
+| 1–2 | Sample CRUD app (`/healthz`, CLAUDE.md, `/products`) | [day1_repository](https://github.com/yic-mes/day1_repository) |
+| 3   | Brownfield refactor (legacy module) | this repo |
+| 4   | Custom command + sub-agent + MCP (starter templates) | [day4_repository](https://github.com/yic-mes/day4_repository) |
+| 5   | Capstone mini project (Option A/B/C specs) | [day5_repository](https://github.com/yic-mes/day5_repository) |
+
 ## Setup
 
 ```bash
