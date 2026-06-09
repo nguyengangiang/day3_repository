@@ -8,7 +8,10 @@ let m;
 
 beforeEach(() => {
   jest.resetModules();
-  m = require('./legacy');
+  const db = require('./db');
+  const orders = require('./orders');
+  const report = require('./report');
+  m = { ...db, ...orders, ...report };
 });
 
 // ── formatCurrency ────────────────────────────────────────────────────────────
