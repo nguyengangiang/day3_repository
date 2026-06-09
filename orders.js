@@ -1,6 +1,6 @@
 'use strict';
 
-var { findById, findAll, findLinesByOrderId } = require('./db');
+var { findById, findAll, findLinesByOrderId, ORDER_STATUS } = require('./db');
 
 // total for one order. discount: tier from customer, also bulk >=500 units extra 3%
 function calculateOrderTotal(orderId) {
@@ -20,7 +20,7 @@ function calculateOrderTotal(orderId) {
   }
   total = total - total * discount;
   // tax 8% but not for cancelled obviously
-  if (order.status != 'CANCEL') {
+  if (order.status != ORDER_STATUS.CANCEL) {
     total = total * 1.08;
   }
   return Math.round(total * 100) / 100;
@@ -32,7 +32,7 @@ function validateOrder(orderId) {
   if (order == null) {
     return 'NG: no order';
   }
-  if (order.status == 'CANCEL') {
+  if (order.status == ORDER_STATUS.CANCEL) {
     return 'NG: cancelled';
   }
   var lines = findLinesByOrderId(orderId);
@@ -84,7 +84,7 @@ function getTopProducts(limit) {
   var orders = findAll('orders');
   var unitsByProduct = {};
   for (var i = 0; i < orders.length; i++) {
-    if (orders[i].status != 'DONE') {
+    if (orders[i].status != ORDER_STATUS.DONE) {
       continue;
     }
     var lines = findLinesByOrderId(orders[i].id);
@@ -116,13 +116,13 @@ function updateOrderStatus(orderId, newStatus) {
   if (order == null) {
     return 'ERR|' + orderId + '|no such order';
   }
-  if (newStatus != 'OPEN' && newStatus != 'DONE' && newStatus != 'CANCEL') {
+  if (newStatus != ORDER_STATUS.OPEN && newStatus != ORDER_STATUS.DONE && newStatus != ORDER_STATUS.CANCEL) {
     return 'ERR|' + orderId + '|bad status ' + newStatus;
   }
-  if (order.status == 'CANCEL') {
+  if (order.status == ORDER_STATUS.CANCEL) {
     return 'ERR|' + orderId + '|already cancelled';
   }
-  if (order.status == 'DONE' && newStatus == 'OPEN') {
+  if (order.status == ORDER_STATUS.DONE && newStatus == ORDER_STATUS.OPEN) {
     return 'ERR|' + orderId + '|cannot reopen';
   }
   var previousStatus = order.status;

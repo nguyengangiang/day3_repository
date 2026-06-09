@@ -1,6 +1,6 @@
 'use strict';
 
-var { findAll, findById, findLinesByOrderId } = require('./db');
+var { findAll, findById, findLinesByOrderId, ORDER_STATUS } = require('./db');
 var { calculateOrderTotal } = require('./orders');
 
 // money format. dont change, accounting wants commas
@@ -44,7 +44,7 @@ function generateMonthlyReport(month) {
       subtotal = subtotal + lineTotal;
       report = report + '    ' + product.name + '  x' + lines[j].quantity + '  @ ' + formatCurrency(product.price) + '  = ' + formatCurrency(lineTotal) + '\n';
     }
-    if (order.status != 'CANCEL') {
+    if (order.status != ORDER_STATUS.CANCEL) {
       var total = calculateOrderTotal(order.id);
       report = report + '  Subtotal: ' + formatCurrency(subtotal) + '   Total(incl. disc+tax): ' + formatCurrency(total) + '\n';
       grandTotal = grandTotal + total;

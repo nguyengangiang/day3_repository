@@ -1,6 +1,8 @@
 // order report module v2 final FINAL (do not touch, hieu knows how it works)
 // last modified 2023-?? by someone
 
+var ORDER_STATUS = { OPEN: 'OPEN', DONE: 'DONE', CANCEL: 'CANCEL' };
+
 var db = {
   customers: [
     { id: 1, name: 'Hanoi Garment Co', tier: 'A', discount: 0.1, city: 'Hanoi' },
@@ -20,16 +22,16 @@ var db = {
     { id: 108, name: 'Puffer Vest', price: 22.0, category: 'OUT', stock: 150 }
   ],
   orders: [
-    { id: 1001, customerId: 1, date: '2026-01-05', status: 'DONE' },
-    { id: 1002, customerId: 2, date: '2026-01-12', status: 'DONE' },
-    { id: 1003, customerId: 1, date: '2026-01-20', status: 'CANCEL' },
-    { id: 1004, customerId: 3, date: '2026-02-02', status: 'DONE' },
-    { id: 1005, customerId: 4, date: '2026-02-09', status: 'OPEN' },
-    { id: 1006, customerId: 2, date: '2026-02-15', status: 'DONE' },
-    { id: 1007, customerId: 5, date: '2026-02-21', status: 'OPEN' },
-    { id: 1008, customerId: 3, date: '2026-03-01', status: 'DONE' },
-    { id: 1009, customerId: 1, date: '2026-03-08', status: 'OPEN' },
-    { id: 1010, customerId: 4, date: '2026-03-15', status: 'DONE' }
+    { id: 1001, customerId: 1, date: '2026-01-05', status: ORDER_STATUS.DONE },
+    { id: 1002, customerId: 2, date: '2026-01-12', status: ORDER_STATUS.DONE },
+    { id: 1003, customerId: 1, date: '2026-01-20', status: ORDER_STATUS.CANCEL },
+    { id: 1004, customerId: 3, date: '2026-02-02', status: ORDER_STATUS.DONE },
+    { id: 1005, customerId: 4, date: '2026-02-09', status: ORDER_STATUS.OPEN },
+    { id: 1006, customerId: 2, date: '2026-02-15', status: ORDER_STATUS.DONE },
+    { id: 1007, customerId: 5, date: '2026-02-21', status: ORDER_STATUS.OPEN },
+    { id: 1008, customerId: 3, date: '2026-03-01', status: ORDER_STATUS.DONE },
+    { id: 1009, customerId: 1, date: '2026-03-08', status: ORDER_STATUS.OPEN },
+    { id: 1010, customerId: 4, date: '2026-03-15', status: ORDER_STATUS.DONE }
   ],
   orderLines: [
     { orderId: 1001, productId: 101, quantity: 200 },
@@ -86,4 +88,4 @@ function getQueryCount() {
   return queryCount;
 }
 
-module.exports = { findById, findAll, findLinesByOrderId, getQueryCount };
+module.exports = { ORDER_STATUS, findById, findAll, findLinesByOrderId, getQueryCount };
